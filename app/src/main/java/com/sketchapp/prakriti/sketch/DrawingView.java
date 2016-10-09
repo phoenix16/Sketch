@@ -10,6 +10,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class DrawingView extends View {
     private Bitmap canvasBitmap;
     private Canvas drawCanvas;
@@ -17,6 +21,11 @@ public class DrawingView extends View {
     private Paint drawPaint, canvasPaint;
     private float mX, mY;
     private static final float TOLERANCE = 5;
+    // Array of paths drawn
+    private ArrayList<Path> paths = new ArrayList<Path>();
+    // Hashmap to map each path with its color
+    private Map<Path, Integer> colorsMap = new HashMap<Path, Integer>();
+    public static int selectedColor;
     Context context;
 
     public DrawingView(Context c, AttributeSet attrs) {
@@ -27,13 +36,13 @@ public class DrawingView extends View {
         drawPaint = new Paint();
         drawPaint.setAntiAlias(true);
         drawPaint.setColor(Color.BLACK);
+        selectedColor = Color.BLACK;
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeWidth(6f);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
     }
 
-    // override onSizeChanged
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -43,12 +52,16 @@ public class DrawingView extends View {
         drawCanvas = new Canvas(canvasBitmap);
     }
 
-    // override onDraw
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // draw the mPath with the drawPaint on the canvas when onDraw
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+        for (Path p : paths) {
+            drawPaint.setColor(colorsMap.get(p));
+            canvas.drawPath(p, drawPaint);
+        }
+
+        drawPaint.setColor(selectedColor);
         canvas.drawPath(drawPath, drawPaint);
     }
 
@@ -73,6 +86,11 @@ public class DrawingView extends View {
     // when ACTION_UP stop touch
     private void upTouch() {
         drawPath.lineTo(mX, mY);
+        paths.add(drawPath);
+        colorsMap.put(drawPath, selectedColor);
+        drawPath = new Path();
+        drawPath.reset();
+        invalidate();
     }
 
     @Override
@@ -97,12 +115,13 @@ public class DrawingView extends View {
 
     // Button Actions
     public void clearCanvas() {
-        drawPath.reset();
+        if (drawPath != null) {
+            paths.clear();
+        }
         invalidate();
     }
 
     public void setColor(String newColor) {
-        invalidate();
-        drawPaint.setColor(Color.parseColor(newColor));
+        selectedColor = Color.parseColor(newColor);
     }
 }
