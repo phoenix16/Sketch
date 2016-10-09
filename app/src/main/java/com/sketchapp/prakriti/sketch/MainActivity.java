@@ -90,12 +90,16 @@ public class MainActivity extends Activity {
             } catch (IllegalStateException ise) {
             }
             if (eventStatus == SpassFingerprint.STATUS_AUTHENTIFICATION_SUCCESS) {
-                drawView.clearCanvas(); // clear canvas if correct finger swipes
-
-//                log("Authentification Success with Fingerprint Index : " + FingerprintIndex);
+                if (FingerprintIndex == 1)
+                {
+                    drawView.clearCanvas();
+                }
+                else if (FingerprintIndex == 2)
+                {
+                    drawView.eraser();
+                }
             }
             else if (eventStatus == SpassFingerprint.STATUS_TIMEOUT_FAILED) {
-//                log("Time out");
             }
             else if (eventStatus == SpassFingerprint.STATUS_QUALITY_FAILED) {
                 needRetryIdentify = true;
@@ -206,9 +210,13 @@ public class MainActivity extends Activity {
         designatedFingers = null;
     }
 
-    // ===================== Drawing App button functions =============================== //
+    // ============================= Drawing App button functions =============================== //
     public void clearCanvas(View v) {
         drawView.clearCanvas();
+    }
+
+    public void eraserBrush(View v) {
+        drawView.eraser();
     }
 
     public void paintClicked(View v) {

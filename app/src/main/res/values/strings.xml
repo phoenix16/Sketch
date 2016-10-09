@@ -3,6 +3,7 @@
 
 <string name="app_name">Sketch</string>
     <string name="action_settings">Settings</string>
+    <string name="clearScreen">Clear Screen</string>
     <string name="erase">Erase</string>
     <string name="paint">Paint</string>
     <string name="fingerprint">fingerprint</string>

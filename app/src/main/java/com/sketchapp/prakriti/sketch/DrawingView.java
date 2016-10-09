@@ -25,7 +25,9 @@ public class DrawingView extends View {
     private ArrayList<Path> paths = new ArrayList<Path>();
     // Hashmap to map each path with its color
     private Map<Path, Integer> colorsMap = new HashMap<Path, Integer>();
+    private Map<Path, Integer> strokeWidthMap = new HashMap<Path, Integer>();
     public static int selectedColor;
+    public static int strokeWidth;
     Context context;
 
     public DrawingView(Context c, AttributeSet attrs) {
@@ -39,7 +41,7 @@ public class DrawingView extends View {
         selectedColor = Color.BLACK;
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
-        drawPaint.setStrokeWidth(6f);
+        drawPaint.setStrokeWidth(25);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
     }
 
@@ -58,10 +60,12 @@ public class DrawingView extends View {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         for (Path p : paths) {
             drawPaint.setColor(colorsMap.get(p));
+            drawPaint.setStrokeWidth(strokeWidthMap.get(p));
             canvas.drawPath(p, drawPaint);
         }
 
         drawPaint.setColor(selectedColor);
+        drawPaint.setStrokeWidth(strokeWidth);
         canvas.drawPath(drawPath, drawPaint);
     }
 
@@ -88,6 +92,7 @@ public class DrawingView extends View {
         drawPath.lineTo(mX, mY);
         paths.add(drawPath);
         colorsMap.put(drawPath, selectedColor);
+        strokeWidthMap.put(drawPath, strokeWidth);
         drawPath = new Path();
         drawPath.reset();
         invalidate();
@@ -121,7 +126,13 @@ public class DrawingView extends View {
         invalidate();
     }
 
+    public void eraser() {
+        selectedColor = 0xFFFFFFFF;
+        strokeWidth = 75;
+    }
+
     public void setColor(String newColor) {
         selectedColor = Color.parseColor(newColor);
+        strokeWidth = 25;
     }
 }
