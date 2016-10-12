@@ -23,7 +23,7 @@ public class DrawingView extends View {
     private static final float TOLERANCE = 5;
     // Array of paths drawn
     private ArrayList<Path> paths = new ArrayList<Path>();
-    // Hashmap to map each path with its color
+    // Hashmap to map each path with its color and stroke width
     private Map<Path, Integer> colorsMap = new HashMap<Path, Integer>();
     private Map<Path, Integer> strokeWidthMap = new HashMap<Path, Integer>();
     public static int selectedColor;
@@ -34,14 +34,16 @@ public class DrawingView extends View {
         super(c, attrs);
         context = c;
 
+
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setAntiAlias(true);
-        drawPaint.setColor(Color.BLACK);
         selectedColor = Color.BLACK;
+        drawPaint.setColor(selectedColor);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
-        drawPaint.setStrokeWidth(25);
+        strokeWidth = 25;
+        drawPaint.setStrokeWidth(strokeWidth);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
     }
 

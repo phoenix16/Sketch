@@ -71,15 +71,6 @@
             android:onClick="paintClicked"
             android:src="@drawable/paint"
             android:tag="#FFFF6600" />
-
-        <Button
-            android:id="@+id/fingerprint_button"
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
-            android:layout_margin="6dp"
-            android:onClick="fingerprintRead"
-            android:contentDescription="@string/fingerprint"
-            android:src="@drawable/fingerprint"/>
     </LinearLayout>
 
     <com.sketchapp.prakriti.sketch.DrawingView

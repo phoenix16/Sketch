@@ -82,7 +82,8 @@ public class MainActivity extends Activity {
 
     private SpassFingerprint.IdentifyListener mIdentifyListener = new SpassFingerprint.IdentifyListener() {
         @Override
-        public void onFinished(int eventStatus) {
+        public void onFinished(int eventStatus)
+        {
             int FingerprintIndex = 0;
             String FingerprintGuideText = null;
             try {
@@ -90,14 +91,7 @@ public class MainActivity extends Activity {
             } catch (IllegalStateException ise) {
             }
             if (eventStatus == SpassFingerprint.STATUS_AUTHENTIFICATION_SUCCESS) {
-                if (FingerprintIndex == 1)
-                {
-                    drawView.clearCanvas();
-                }
-                else if (FingerprintIndex == 2)
-                {
-                    drawView.eraser();
-                }
+                fingerprintAction(FingerprintIndex);
             }
             else if (eventStatus == SpassFingerprint.STATUS_TIMEOUT_FAILED) {
             }
@@ -125,7 +119,8 @@ public class MainActivity extends Activity {
         @Override
         public void onCompleted() {
             onReadyIdentify = false;
-            if (needRetryIdentify) {
+            if (needRetryIdentify)
+            {
                 needRetryIdentify = false;
             }
         }
@@ -164,6 +159,7 @@ public class MainActivity extends Activity {
         isFeatureEnabled_index = mSpass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT_FINGER_INDEX);
 
         registerBroadcastReceiver();
+        startIdentify();
     }
 
     @Override
@@ -178,9 +174,9 @@ public class MainActivity extends Activity {
         resetAll();
     }
 
-    // ============================ Fingerprint functions ====================== //
+    // ============================ Fingerprint functions ======================================= //
 
-    private void startIdentify() {
+    public void startIdentify() {
         if (onReadyIdentify == false) {
             try {
                 onReadyIdentify = true;
@@ -230,9 +226,19 @@ public class MainActivity extends Activity {
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
             currPaint = (ImageButton)v;
         }
+        startIdentify();
     }
 
-    public void fingerprintRead(View v) {
+    // Program each registered fingerprint with chosen action
+    public void fingerprintAction(int fingerprintIndex) {
+        if (fingerprintIndex == 1)
+        {
+            drawView.clearCanvas();
+        }
+        else if (fingerprintIndex == 2)
+        {
+            drawView.eraser();
+        }
         startIdentify();
     }
 }
