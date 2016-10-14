@@ -3,6 +3,7 @@ package com.sketchapp.prakriti.sketch;
 // Imports for Drawing App
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,6 +25,16 @@ public class MainActivity extends Activity {
     // ========================== Drawing App variables ==========================================//
     private DrawingView drawView;
     private ImageButton currPaint;
+
+    // ====================== Set up timer to keep listening to fingerprint ======================//
+    private Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            startIdentify();
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     // ====================== Fingerprint related variables=======================================//
 
@@ -158,8 +169,8 @@ public class MainActivity extends Activity {
 
         isFeatureEnabled_index = mSpass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT_FINGER_INDEX);
 
-        registerBroadcastReceiver();
-        startIdentify();
+        registerBroadcastReceiver();// Enable the timer
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
     @Override
@@ -226,7 +237,11 @@ public class MainActivity extends Activity {
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
             currPaint = (ImageButton)v;
         }
-        startIdentify();
+    }
+
+    public void undoClicked(View v)
+    {
+        drawView.undo();
     }
 
     // Program each registered fingerprint with chosen action
@@ -237,8 +252,13 @@ public class MainActivity extends Activity {
         }
         else if (fingerprintIndex == 2)
         {
+            drawView.undo();
             drawView.eraser();
         }
-        startIdentify();
+        else if (fingerprintIndex == 3)
+        {
+            drawView.undo();
+            drawView.undo();
+        }
     }
 }

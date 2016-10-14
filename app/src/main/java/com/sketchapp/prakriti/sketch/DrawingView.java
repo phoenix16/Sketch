@@ -23,6 +23,7 @@ public class DrawingView extends View {
     private static final float TOLERANCE = 5;
     // Array of paths drawn
     private ArrayList<Path> paths = new ArrayList<Path>();
+    private ArrayList<Path> undonePaths = new ArrayList<Path>();
     // Hashmap to map each path with its color and stroke width
     private Map<Path, Integer> colorsMap = new HashMap<Path, Integer>();
     private Map<Path, Integer> strokeWidthMap = new HashMap<Path, Integer>();
@@ -72,7 +73,9 @@ public class DrawingView extends View {
     }
 
     // when ACTION_DOWN start touch according to the x,y values
-    private void startTouch(float x, float y) {
+    private void startTouch(float x, float y)
+    {
+        undonePaths.clear();
         drawPath.moveTo(x, y);
         mX = x;
         mY = y;
@@ -121,20 +124,33 @@ public class DrawingView extends View {
     }
 
     // Button Actions
-    public void clearCanvas() {
+    public void clearCanvas()
+    {
         if (drawPath != null) {
             paths.clear();
         }
         invalidate();
     }
 
-    public void eraser() {
+    public void eraser()
+    {
         selectedColor = 0xFFFFFFFF;
         strokeWidth = 75;
     }
 
-    public void setColor(String newColor) {
+    public void setColor(String newColor)
+    {
         selectedColor = Color.parseColor(newColor);
         strokeWidth = 25;
+    }
+
+
+    public void undo()
+    {
+        if (paths.size() > 0)
+        {
+            undonePaths.add(paths.remove(paths.size()-1));
+            invalidate();
+        }
     }
 }

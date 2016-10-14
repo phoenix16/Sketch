@@ -15,22 +15,34 @@
         android:orientation="horizontal" >
 
         <ImageButton
-            android:id="@+id/clearScreen_button"
             android:layout_width="@dimen/large_brush"
             android:layout_height="@dimen/large_brush"
             android:layout_margin="6dp"
-            android:onClick="clearCanvas"
-            android:contentDescription="@string/clearScreen"
-            android:src="@drawable/eraser"/>
+            android:background="#F46242"
+            android:contentDescription="@string/paint"
+            android:onClick="paintClicked"
+            android:src="@drawable/paint"
+            android:tag="#F46242" />
 
         <ImageButton
-            android:id="@+id/erase_button"
             android:layout_width="@dimen/large_brush"
             android:layout_height="@dimen/large_brush"
             android:layout_margin="6dp"
-            android:onClick="eraserBrush"
-            android:contentDescription="@string/erase"
-            android:src="@drawable/eraser"/>
+            android:background="#42d4f4"
+            android:contentDescription="@string/paint"
+            android:onClick="paintClicked"
+            android:src="@drawable/paint"
+            android:tag="#42d4f4" />
+
+        <ImageButton
+            android:layout_width="@dimen/large_brush"
+            android:layout_height="@dimen/large_brush"
+            android:layout_margin="6dp"
+            android:background="#F4F442"
+            android:contentDescription="@string/paint"
+            android:onClick="paintClicked"
+            android:src="@drawable/paint"
+            android:tag="#F4F442" />
 
         <ImageButton
             android:layout_width="@dimen/large_brush"
@@ -66,11 +78,11 @@
             android:layout_width="@dimen/large_brush"
             android:layout_height="@dimen/large_brush"
             android:layout_margin="6dp"
-            android:background="#FFFF6600"
+            android:background="#6842F4"
             android:contentDescription="@string/paint"
             android:onClick="paintClicked"
             android:src="@drawable/paint"
-            android:tag="#FFFF6600" />
+            android:tag="#6842F4" />
     </LinearLayout>
 
     <com.sketchapp.prakriti.sketch.DrawingView
