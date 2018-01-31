@@ -2,7 +2,7 @@
 Sketch with the largest canvas your phone can offer!
 Free up screen real estate by getting rid of menus!
 
-Sketch is an Android drawing app that lets a user associate a drawing menu button with a particular enrolled fingerprint.
+Sketch is an Android drawing app that lets a user associate a drawing menu button with an enrolled fingerprint.
 This creates menu shortcuts that can be accessed with one's fingerprints.
 
 Sample usage: Touch the fingerprint sensor with
