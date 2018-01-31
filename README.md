@@ -1,6 +1,12 @@
 # Sketch
-Sketch is an android drawing app that lets the user program drawing menu functions with fingerprints.
-This app uses the Samsung Fingerprint API Spass and has been tested on a Samsung Galaxy S5 running Android 6.0.1.
-The user registers fingerprints on the phone using the default android fingerprint enrollment procedure
-under Settings -> Finger Scanner. 
-Sketch adds functionality to 3 registered fingerprints.
+Sketch with the largest canvas your phone can offer!
+Free up screen real estate by getting rid of menus!
+
+Sketch is an Android drawing app that lets a user associate a drawing menu button with a particular enrolled fingerprint.
+This creates menu shortcuts that can be accessed with one's fingerprints.
+
+Sample usage: Touch the fingerprint sensor with
+finger 1 to start over with an empty canvas
+finger 2 to undo last gesture
+finger 3 to switch to an eraser
+This app has been tested on a Samsung Galaxy S5, which permits a user register up to 3 fingerprints.
