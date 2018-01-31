@@ -5,7 +5,7 @@ Free up screen real estate by getting rid of menus!
 Sketch is an Android drawing app that lets a user associate a drawing menu button with an enrolled fingerprint.
 This creates menu shortcuts that can be accessed with one's fingerprints.
 
-Sample usage: Touch the fingerprint sensor with
+Sample usage: Program the fingerprint sensor with
 - finger 1 to start over with an empty canvas
 - finger 2 to undo last gesture
 - finger 3 to switch to an eraser 
