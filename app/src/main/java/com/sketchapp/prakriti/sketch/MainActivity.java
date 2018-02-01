@@ -1,3 +1,7 @@
+//
+// Developer : Prakriti Chintalapoodi - c.prakriti@gmail.com 
+//
+
 package com.sketchapp.prakriti.sketch;
 
 // Imports for Drawing App
